@@ -441,4 +441,60 @@ for i in data:
     dll.remove_node(i)
     print(dll)
 
+print("")
+print("Singly Linked List")
+print("")
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.size = 0
 
+    def add_node(self, value):
+        new_node = Node(value)
+
+        if self.size == 0:
+            self.head = new_node
+        else:
+            new_node.next = self.head
+            self.head = new_node
+
+        self.size += 1
+        return True
+
+    def remove_node(self, value):
+        curr = self.head
+        prev = None
+
+        while curr:
+            if curr.data == value:
+                if prev is not None:
+                    # handle middle and tail
+                    prev.next = curr.next
+                else:
+                    if self.head.next is not None:
+                        self.head = self.head.next
+                    else:
+                        self.head = None
+                self.size -= 1
+                return True
+            else:
+                prev = curr
+                curr = curr.next
+
+        return False
+
+    def __str__(self):
+        output = ""
+        curr = self.head
+        while curr:
+            output += "%s->" % curr.data
+            curr = curr.next
+        return output
+
+sll = SinglyLinkedList()
+for i in data:
+    sll.add_node(i)
+    print(sll)
+for i in data:
+    sll.remove_node(i)
+    print(sll)
