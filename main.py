@@ -147,6 +147,26 @@ class Graph:
                     order.append(edge[0])
         return order
 
+    def bfs(self, vertex):
+        visited = set()
+        order = []
+        queue = []
+
+        visited.add(vertex)
+        queue.append(vertex)
+
+        while queue:
+            curr_vtx = queue.pop(0)
+            order.append(curr_vtx)
+
+            if curr_vtx in self.graph:
+                for edge in self.graph[curr_vtx]:
+                    if edge[0] not in visited:
+                        visited.add(edge[0])
+                        queue.append(edge[0])
+
+        return order
+
     def output(self):
         for node in self.graph:
             print(str(node) + ":", self.graph[node])
@@ -167,3 +187,6 @@ pprint.pprint(g.shortest_distance("A", "Z"))
 print("")
 print("Depth First Search - Graph")
 pprint.pprint(g.dfs("A"))
+print("")
+print("Breadth First Search")
+pprint.pprint(g.bfs("A"))
