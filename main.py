@@ -574,3 +574,68 @@ mh.add_value(10)
 print(mh)
 
 print("Min Heap -> Reverse")
+
+print("")
+print("Queue - FIFO")
+class Queue:
+    def __init__(self):
+        self.queue = []
+
+    def add(self, value):
+        self.queue.insert(0, value)
+
+    def remove(self):
+        self.queue.pop()
+
+    def __str__(self):
+        return str(self.queue)
+
+q = Queue()
+q.add((1))
+q.add((2))
+q.add((3))
+q.add((4))
+q.add((5))
+print(q)
+q.remove()
+print(q)
+q.remove()
+print(q)
+q.remove()
+print(q)
+
+
+print("")
+print("Stack - LIFO")
+print("")
+
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def add(self, value):
+        self.stack.append(value)
+
+    def remove(self):
+        self.stack.pop()
+
+    def __str__(self):
+        return str(self.stack)
+
+s = Stack()
+s.add((1))
+print(s)
+s.add((2))
+print(s)
+s.add((3))
+print(s)
+s.add((4))
+print(s)
+s.add((5))
+print(s)
+s.remove()
+print(s)
+s.remove()
+print(s)
+s.remove()
+print(s)
