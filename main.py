@@ -498,3 +498,79 @@ for i in data:
 for i in data:
     sll.remove_node(i)
     print(sll)
+
+class MaxHeap:
+    def __init__(self, items=[]):
+        super().__init__()
+        self.heap = [0]
+        for i in items:
+            self.heap.append(i)
+            self._float(len(self.heap) - 1)
+
+    def add_value(self, value):
+        self.heap.append(value)
+
+        if len(self.heap) > 2:
+            self._float(len(self.heap) - 1)
+
+    def remove(self):
+        max = None
+        if len(self.heap) == 1:
+            return False
+        if len(self.heap) == 2:
+            max = self.heap.pop()
+        if len(self.heap) > 2:
+            self._switch(1, len(self.heap) - 1)
+            max = self.heap.pop()
+            return self._bubble(1)
+
+    def _float(self, index):
+        """
+        :param index: Comparing childern to parents Upwards
+        """
+        if index == 1:
+            return None
+        else:
+            parent = index // 2
+            if self.heap[parent] < self.heap[index]:
+                self._switch(parent, index)
+                self._float(parent)
+
+    def _bubble(self, index):
+        """
+        Comparing parents to childern, downwards
+        :param index:  Index
+        """
+        left_child = index * 2
+        right_child = (index * 2) + 1
+        largest = index
+
+        if left_child < len(self.heap) and self.heap[left_child] > self.heap[largest]:
+            largest = left_child
+        if right_child < len(self.heap) and self.heap[right_child] > self.heap[largest]:
+            largest = right_child
+        if index != largest:
+            self._switch(index, largest)
+            self._bubble(largest)
+
+    def _switch(self, index1, index2):
+        """
+        Helper function for swapping positions
+        :param index1: First index
+        :param index2: Second Index
+        :return: Swapped positions
+        """
+        self.heap[index1], self.heap[index2] = self.heap[index2], self.heap[index1]
+
+    def __str__(self):
+        return str(self.heap[1:])
+
+print("Max Heap")
+mh = MaxHeap(data)
+print(mh)
+mh.remove()
+print(mh)
+mh.add_value(10)
+print(mh)
+
+print("Min Heap -> Reverse")
