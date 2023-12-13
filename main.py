@@ -127,6 +127,26 @@ class Graph:
 
         return shortest
 
+    def dfs(self, vertex, visited=None, order=None):
+        if visited is None and order is None:
+            visited = set() # use set O(1) lookup
+            order = []
+
+        if vertex not in visited:
+            """Update visted and 
+            order each recursive call"""
+
+            visited.add(vertex)
+            order.append(vertex)
+
+            for edge in self.graph[vertex]:
+                if edge[0] in self.graph:
+                    # Recursive call when edge[0] is in graph
+                    self.dfs(edge[0], visited, order)
+                else:
+                    order.append(edge[0])
+        return order
+
     def output(self):
         for node in self.graph:
             print(str(node) + ":", self.graph[node])
@@ -144,3 +164,6 @@ g.dijkstras("A")
 print("")
 print("Shortest Path - Path list length")
 pprint.pprint(g.shortest_distance("A", "Z"))
+print("")
+print("Depth First Search - Graph")
+pprint.pprint(g.dfs("A"))
