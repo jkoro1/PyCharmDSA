@@ -70,6 +70,38 @@ class Graph:
                     paths.append(node)
         return paths
 
+    def dijkstras(self, node):
+        """
+        :param node: Starting Node
+        :return: Shortest Paths & Shortest Paths Total ***BY WEIGHT***
+        """
+        distances = {vertex: float("inf") for vertex in self.graph}
+        paths = {vertex:[node] for vertex in self.graph}
+        distances[node] = 0
+
+        queue = [(0, node)]
+
+        while queue:
+            curr_dist, curr_vtx = queue.pop(0)
+
+            if curr_dist > distances[curr_vtx]:
+                continue
+
+            for vtx, weight in self.graph[curr_vtx]:
+                dist_thru = weight + curr_dist
+                if dist_thru < distances[vtx]:
+                    distances[vtx] = dist_thru
+                    paths[vtx] = paths[curr_vtx] + [vtx]
+                    queue.append((distances[vtx], vtx))
+
+        print("Distances")
+        pprint.pprint(distances)
+        print("Paths")
+        pprint.pprint(paths)
+
+        return True
+
+
     def output(self):
         for node in self.graph:
             print(str(node) + ":", self.graph[node])
@@ -82,3 +114,5 @@ for i in edges:
 print("ALL PATHS")
 pprint.pprint(g.all_paths("A", "Z"))
 print("")
+print("Dijkstras")
+g.dijkstras("A")
