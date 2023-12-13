@@ -190,3 +190,102 @@ pprint.pprint(g.dfs("A"))
 print("")
 print("Breadth First Search")
 pprint.pprint(g.bfs("A"))
+print("")
+print("------------------------")
+print("")
+
+class BinaryTree:
+    def __init__(self, root):
+        self.root = root
+        self.left = None
+        self.right = None
+
+    def add_leaf(self, value):
+        if value == self.root:
+            return None
+        elif value < self.root:
+            if self.left:
+                self.left.add_leaf(value)
+            else:
+                self.left = BinaryTree(value)
+        else:
+            if self.right:
+                self.right.add_leaf(value)
+            else:
+                self.right = BinaryTree(value)
+
+    def find_min(self):
+        """
+        Helper function for node removal
+        :return: Minimum value in tree
+        """
+        if self.left is None:
+            return self.root
+        else:
+            return self.left.find_min()
+
+    def remove_value(self, value):
+        if value < self.root:
+            if self.left:
+                self.left = self.left.remove_value(value)
+        elif value > self.root:
+            if self.right:
+                self.right = self.right.remove_value(value)
+        else:
+            if self.left is None and self.right is None:
+                return None
+            elif self.left is None:
+                return self.right
+            elif self.right is None:
+                return self.left
+            else:
+                min_val = self.right.find_min()
+                self.root = min_val
+                self.right = self.right.remove_value(min_val)
+
+        return self
+
+    def in_order_traversal(self):
+
+        elements = []
+
+        if self.left:
+            elements += self.left.in_order_traversal()
+
+        elements.append(self.root)
+
+        if self.right:
+            elements += self.right.in_order_traversal()
+
+        return elements
+
+    def pre_order_traversal(self):
+        elements = [self.root]
+
+        if self.left:
+            self.left.pre_order_traversal()
+        if self.right:
+            self.right.pre_order_traversal()
+
+        return elements
+
+    def post_order_traversal(self):
+        elements = []
+
+        if self.left:
+            elements += self.left.post_order_traversal()
+        if self.right:
+            elements += self.right.post_order_traversal()
+        elements.append(self.root)
+
+        return elements
+
+print("Binary Tree")
+
+tree = BinaryTree(data[0])
+for i in data[1:]:
+    tree.add_leaf(i)
+    print(tree.in_order_traversal())
+for i in data:
+    tree.remove_value(i)
+    print(tree.in_order_traversal())
