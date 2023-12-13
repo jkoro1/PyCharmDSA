@@ -372,7 +372,73 @@ for i in data:
     cll.remove_node(i)
     print(cll)
 
+print("")
+print("Doubly Linked List")
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.last = None
+        self.size = 0
 
+    def add_node(self, value):
+        new_node = Node(value)
 
+        if self.size == 0:
+            self.head = new_node
+            self.last = new_node
+        else:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+
+        self.size += 1
+        return True
+
+    def remove_node(self, value):
+        curr = self.head
+
+        while curr:
+            if curr.data == value:
+                if curr.prev is not None:
+                    if curr.next is not None:
+                        # Handle Middle Node
+                        curr.prev.next = curr.next
+                        curr.next.prev = curr.prev
+                    else:
+                        # Handle Tail Node
+                        self.last = curr.prev
+                        curr.prev.next = None
+                else:
+                    # Handle Head Node
+                    if self.head.next is not None:
+                        self.head = self.head.next
+                        self.head.prev = None
+                    else:
+                        self.head = None
+                        self.last = None
+
+                self.size -= 1
+                return
+            else:
+                curr = curr.next
+        return False
+
+    def __str__(self):
+        output = ""
+        curr = self.head
+
+        while curr:
+            output += "%s->" % curr.data
+            curr = curr.next
+
+        return output
+
+dll = DoublyLinkedList()
+for i in data:
+    dll.add_node(i)
+    print(dll)
+for i in data:
+    dll.remove_node(i)
+    print(dll)
 
 
