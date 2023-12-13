@@ -56,3 +56,22 @@ def quick_sort(list):
 print("")
 print("Quick Sort")
 print(quick_sort(data))
+
+def binary_search(list, target):
+    low = 0
+    high = len(list) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        if list[mid] == target:
+            return mid
+        elif list[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return -1
+
+print("")
+print("Binary Search for index of 33")
+print(binary_search(nlist, 33))
