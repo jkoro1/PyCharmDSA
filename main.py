@@ -101,6 +101,31 @@ class Graph:
 
         return True
 
+    def shortest_distance(self, start, end, path=[]):
+        """
+        :param start: Starting Node
+        :param end: Ending Node
+        :param path: Path Tracker
+        :return: Shortest Path -> Path Lenght
+        """
+
+        path = path + [start]
+
+        if start == end:
+            return path
+
+        if start not in self.graph:
+            return None
+
+        shortest = None
+        for edge in self.graph[start]:
+            if edge[0] not in path:
+                short = self.shortest_distance(edge[0], end, path)
+                if short: # Check if not None
+                    if shortest is None or len(short) < len(shortest):
+                        shortest = short
+
+        return shortest
 
     def output(self):
         for node in self.graph:
@@ -116,3 +141,6 @@ pprint.pprint(g.all_paths("A", "Z"))
 print("")
 print("Dijkstras")
 g.dijkstras("A")
+print("")
+print("Shortest Path - Path list length")
+pprint.pprint(g.shortest_distance("A", "Z"))
