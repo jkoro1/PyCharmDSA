@@ -36,3 +36,23 @@ print(data)
 print("Merge Sort - New List")
 nlist = merge_sort(data)
 print(nlist)
+
+def quick_sort(list):
+    if len(list) < 2:
+        return list
+
+    piv = list[0]
+    ltp = []
+    gtp = []
+
+    for i in list[1:]:
+        if i <= piv:
+            ltp.append(i)
+        else:
+            gtp.append(i)
+
+    return quick_sort(ltp) + [piv] + quick_sort(gtp)
+
+print("")
+print("Quick Sort")
+print(quick_sort(data))
