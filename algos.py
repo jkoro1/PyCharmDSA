@@ -75,3 +75,44 @@ def binary_search(list, target):
 print("")
 print("Binary Search for index of 33")
 print(binary_search(nlist, 33))
+
+print("")
+print("Merge sort, in place")
+def inplace(list):
+    if len(list) > 1:
+        mid = len(list) // 2
+        left = list[:mid]
+        right = list[mid:]
+
+
+        inplace(left)
+        inplace(right)
+
+        i = 0 # LEft
+        j = 0 # right
+        k = 0 # Main list
+
+        while i < len(left) and j < len(right):
+            if left[i] <= right[j]:
+                list[k] = left[i]
+                i += 1
+            else:
+                list[k] = right[j]
+                j += 1
+
+            k += 1
+
+        while i < len(left):
+            list[k] = left[i]
+            i += 1
+            k += 1
+
+        while j < len(right):
+            list[k] = right[j]
+            j += 1
+            k += 1
+
+
+print("Orignal ->", data)
+inplace(data)
+print("Modified ->", data)
