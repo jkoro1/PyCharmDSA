@@ -289,3 +289,90 @@ for i in data[1:]:
 for i in data:
     tree.remove_value(i)
     print(tree.in_order_traversal())
+
+print("")
+print("------------------")
+print("Linked Lists!!")
+class Node:
+    """
+    Node class that will be used for all
+    linked lists
+    """
+    def __init__(self, root):
+        self.data = root
+        self.prev = None
+        self.next = None
+
+class CircualrLinkedList:
+    def __init__(self):
+        self.head = None
+        self.size = 0
+
+    def add_node(self, value):
+        new_node = Node(value)
+
+        if self.size == 0:
+            """
+            Circualr Linked List, tail connects to another node 
+            in this example, the head
+            """
+            self.head = new_node
+            new_node.next = self.head
+        else:
+            """
+            Adding node in the second posistion
+            for quick additions
+            """
+            new_node.next = self.head.next
+            self.head.next = new_node
+
+        self.size += 1
+        return True
+
+    def remove_node(self, value):
+        curr = self.head
+        prev = None
+
+        while True:
+            if curr.data == value:
+                if prev != None:
+                    prev.next = curr.next
+                else:
+                    while curr.next != self.head:
+                        curr = curr.next
+                    curr.next = self.head.next
+                    self.head = self.head.next
+
+                self.size -= 1
+                return
+            elif curr.next == self.head:
+                return False
+            else:
+                prev = curr
+                curr = curr.next
+
+    def __str__(self):
+        """Ouput method"""
+        output = ""
+        curr = self.head
+        output += "%s->" % curr.data
+        curr = curr.next
+        while curr != self.head:
+            output += "%s->" % curr.data
+            curr = curr.next
+        return output
+
+print("")
+print("Circular Linked list")
+cll = CircualrLinkedList()
+for i in data:
+    cll.add_node(i)
+    print(cll)
+for i in data:
+    cll.remove_node(i)
+    print(cll)
+
+
+
+
+
